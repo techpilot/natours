@@ -12,33 +12,33 @@ dotenv.config({ path: './config.env' });
 const app = require('./app');
 
 // HOSTED DATABASE
-// const DB = process.env.DATABASE.replace(
-//   '<PASSWORD>',
-//   process.env.DATABASE_PASSWORD
-// );
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
 
-// mongoose
-//   .connect(DB, {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useFindAndModify: false,
-//     useUnifiedTopology: true,
-//   })
-//   .then((con) => {
-//     // console.log(con.connections);
-//     console.log('Db Connection successful');
-//   });
-
-// LOCAL DATABASE
 mongoose
-  .connect(process.env.DATABASE_LOCAL, {
+  .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('DB connection successful'))
-  .catch((err) => console.log('ERROR'));
+  .then((con) => {
+    // console.log(con.connections);
+    console.log('Db Connection successful');
+  });
+
+// LOCAL DATABASE
+// mongoose
+//   .connect(process.env.DATABASE_LOCAL, {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useFindAndModify: false,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log('DB connection successful'))
+//   .catch((err) => console.log('ERROR'));
 
 // console.log(app.get('env'));
 // console.log(process.env);
