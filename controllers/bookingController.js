@@ -5,7 +5,7 @@ const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
-  // 1) Get the currnetly booked tour
+  // 1) Get the currently booked tour
   const tour = await Tour.findById(req.params.tourId);
 
   // 2) Create checkout session
@@ -37,7 +37,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 });
 
 exports.createBookingCheckout = catchAsync(async (req, res, next) => {
-  // This is temporary cos it's unsecure: evryone can book with paying
+  // This is temporary cos it's unsecure: everyone can book with paying
   const { tour, user, price } = req.query;
 
   if (!tour && !user && !price) return next();

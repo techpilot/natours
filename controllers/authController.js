@@ -34,10 +34,12 @@ const createSendToken = (user, statusCode, res) => {
       user,
     },
   });
+  console.log(token);
   next();
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -50,11 +52,12 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordResetExpires: req.body.passwordResetExpires,
   });
 
-  const url = `${req.protocol}://${req.get('host')}/me`;
-  console.log(url);
-  await new Email(newUser, url).sendWelcome();
+  // const url = `${req.protocol}://${req.get('host')}/me`;
+  // console.log(url);
+  // await new Email(newUser, url).sendWelcome();
 
   createSendToken(newUser, 201, res);
+  console.log('user created');
 });
 
 // LOGIN IMPLEMENTATION
@@ -75,6 +78,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // if everything is ok, send token to client
   createSendToken(user, 201, res);
+  console.log('okay, logged in successfully');
 });
 
 exports.logout = (req, res) => {
